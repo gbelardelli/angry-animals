@@ -71,4 +71,5 @@ libraries = {
 [node name="VanishSound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("4_82jmc")
 
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
 [connection signal="finished" from="VanishSound" to="." method="_on_vanish_sound_finished"]

@@ -11,7 +11,7 @@ const DRAG_LIMIT_MIN: Vector2 = Vector2(-60,0)
 const IMPULSE_MULTIPLIER: float = 20.0
 const IMPULSE_MAX: float = 1200.0
 const FIRE_DELAY: float = 0.25
-const STOPPED: float = 0.1
+const STOPPED: float = 0.2
 
 var _dead:bool = false
 var _dragging: bool = false
@@ -29,15 +29,16 @@ var _game_over: bool = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	print("Animal ready [%s] _dead:%s" % [self.to_string(), _dead])
+	#print("Animal ready [%s] _dead:%s" % [self.to_string(), _dead])
 	_start = global_position
 	_arrow_scale_x = arrow_sprite.scale.x
 	arrow_sprite.hide()
 	SignalManager.on_game_over.connect(on_game_over)
+	SignalManager.on_cup_destroyed.connect(on_cup_destroyed)
 
 func on_game_over() -> void:
-	print("GAME OVER ANIMAL")
-	animal_sprite.hide()
+	#print("GAME OVER ANIMAL")
+	queue_free()
 	_game_over=true
 
 func _physics_process(delta):
@@ -105,9 +106,15 @@ func check_on_target() -> void:
 	var cup = cb[0]
 	
 	if cup.is_in_group(GameManager.GROUP_CUP) == true:
-		print("check_on_target true")
+		#print("check_on_target true")
+		_released=false
+		_dragging=false
 		cup.die()
-		die()
+		animal_sprite.hide()
+
+func on_cup_destroyed() -> void:
+	die()
+	ScoreManager.on_cup_destroyed()
 
 func play_collision() -> void:
 	if(
@@ -120,8 +127,8 @@ func play_collision() -> void:
 	_last_collision_count=get_contact_count()
 	
 func grab_it() -> void:
-	print("grab it _game_over:%s, _dead:%s" % [_game_over, _dead])
-	if _game_over == true or _dead == true:
+	#print("grab it _game_over:%s, _dead:%s" % [_game_over, _dead])
+	if _game_over == true:
 		return
 
 	_dragging = true
@@ -165,17 +172,19 @@ func get_impulse() -> Vector2:
 	return _dragged_vector * -1 * IMPULSE_MULTIPLIER
 
 func die() -> void:
-	print("Animal die [%s] _game_over:%s, _dead:%s" % [ self.to_string(), _game_over, _dead])
+	#print("Animal die [%s] _game_over:%s, _dead:%s" % [ self.to_string(), _game_over, _dead])
 	if _dead==true:
 		return
 
 	_dead=true
-	SignalManager.on_animal_died.emit()
+	if ScoreManager.check_game_over() == false:
+		SignalManager.on_animal_died.emit()
+	
 	queue_free()
-	print("Animal die end [%s] _game_over:%s, _dead:%s" % [self.to_string(),_game_over, _dead])
+	#print("Animal die end [%s] _game_over:%s, _dead:%s" % [self.to_string(),_game_over, _dead])
 
 func _on_screen_exited():
-	print("coord: ",global_position)
+	#print("coord: ",global_position)
 	#if global_position.y > 0:
 	die()
 

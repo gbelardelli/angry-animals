@@ -1,15 +1,12 @@
 extends Node
 
-const DEFAULT_SCORE: int = 1000
+const DEFAULT_SCORE: int = 100
 
 var _level_scores: Dictionary = {}
 var _level_selected: int = 0
 var _attempts: int = 0
 var _cups_hit: int = 0
 var _target_cups: int = 0
-
-func _ready():
-	SignalManager.on_cup_destroyed.connect(on_cup_destroyed)
 
 func check_and_add(level:int) -> void:
 	if _level_scores.has(level) == false:
@@ -38,17 +35,20 @@ func attempt_made()->void:
 	_attempts+=1
 	SignalManager.on_attempt_made.emit()
 
-func check_game_over() -> void:
+func check_game_over() -> bool:
 	if _cups_hit >= _target_cups:
-		print("GAME OVER", _level_scores)
-		SignalManager.on_game_over.emit()
+		#print("GAME OVER", _level_scores)
+
 		if _level_scores[_level_selected] > _attempts:
 			_level_scores[_level_selected] = _attempts
-			print("Record set", _level_scores)
+			#print("Record set", _level_scores)
+		return true
+	return false
 
 func on_cup_destroyed() -> void:
 	_cups_hit+=1
-	
-	check_game_over()
+	#print("on_cup_destroyed")
+	if check_game_over() == true:
+		SignalManager.on_game_over.emit()
 
 

@@ -14,7 +14,7 @@ func _ready():
 
 func setup() -> void:
 	var tc = get_tree().get_nodes_in_group(GameManager.GROUP_CUP)
-	print("setup tc:",tc)
+	#print("setup tc:",tc)
 	ScoreManager.set_target_cups(tc.size())
 	
 func on_update_debug_label(text: String) -> void:
