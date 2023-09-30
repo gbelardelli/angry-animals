@@ -1,0 +1,39 @@
+[gd_scene load_steps=6 format=3 uid="uid://dmt3e3atcr3dc"]
+
+[ext_resource type="Script" path="res://level/level.gd" id="1_3x4x5"]
+[ext_resource type="Texture2D" uid="uid://dpiyupi73remt" path="res://assets/scene/colored_castle.png" id="2_5fmpo"]
+[ext_resource type="PackedScene" uid="uid://sr2m21no24fn" path="res://game_ui/game_ui.tscn" id="2_wy2uk"]
+[ext_resource type="PackedScene" uid="uid://j7uh5qpsosdj" path="res://water/water.tscn" id="4_n6b4r"]
+[ext_resource type="PackedScene" uid="uid://dxajttrunl4k6" path="res://launch_area/launch_area.tscn" id="5_ga5lh"]
+
+[node name="Level" type="Node2D"]
+script = ExtResource("1_3x4x5")
+
+[node name="GameUI" parent="." instance=ExtResource("2_wy2uk")]
+
+[node name="ColoredCastle" type="Sprite2D" parent="."]
+position = Vector2(515, 287)
+scale = Vector2(1.2, 1.2)
+texture = ExtResource("2_5fmpo")
+
+[node name="DebugLabel" type="Label" parent="."]
+visible = false
+offset_left = 24.0
+offset_top = 24.0
+offset_right = 424.0
+offset_bottom = 184.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "gyhghfghfhgfhfg
+fghfhfghf
+dfsdfsf
+sdfsf
+sdfsdfsf
+sdfsdf"
+
+[node name="AnimalStart" type="Marker2D" parent="."]
+position = Vector2(150, 330)
+
+[node name="Water" parent="." instance=ExtResource("4_n6b4r")]
+
+[node name="LaunchArea" parent="." instance=ExtResource("5_ga5lh")]
+position = Vector2(50, 377)

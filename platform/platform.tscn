@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://bpgyb61nlhmcf"]
+
+[ext_resource type="Texture2D" uid="uid://cvgturuko0uu" path="res://assets/env/elementStone025.png" id="1_fad6y"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_i3lw2"]
+size = Vector2(66.6667, 216)
+
+[node name="Platform" type="StaticBody2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.3, 0.5)
+texture = ExtResource("1_fad6y")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+scale = Vector2(0.3, 0.5)
+shape = SubResource("RectangleShape2D_i3lw2")

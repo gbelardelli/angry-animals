@@ -1,0 +1,59 @@
+[gd_scene load_steps=6 format=3 uid="uid://sr2m21no24fn"]
+
+[ext_resource type="LabelSettings" uid="uid://dd1c8gmx6jw5j" path="res://assets/LG_24_grey.tres" id="1_2x2fv"]
+[ext_resource type="Script" path="res://game_ui/game_ui.gd" id="1_cnjff"]
+[ext_resource type="LabelSettings" uid="uid://b6k5v2rfuxecp" path="res://assets/LG_72_title.tres" id="2_d4xbp"]
+[ext_resource type="LabelSettings" uid="uid://drbnusey5di53" path="res://assets/LG_48_white.tres" id="3_7j6lc"]
+[ext_resource type="AudioStream" uid="uid://c45haj06022j6" path="res://assets/audio/jazzyfrenchy.mp3" id="4_ytaut"]
+
+[node name="GameUI" type="CanvasLayer"]
+script = ExtResource("1_cnjff")
+
+[node name="MC" type="MarginContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 12
+
+[node name="VB" type="VBoxContainer" parent="MC"]
+layout_mode = 2
+
+[node name="LevelLabel" type="Label" parent="MC/VB"]
+layout_mode = 2
+text = "LEVEL 11"
+label_settings = ExtResource("1_2x2fv")
+vertical_alignment = 1
+
+[node name="AttemptsLabel" type="Label" parent="MC/VB"]
+layout_mode = 2
+text = "ATTEMPTS 11"
+label_settings = ExtResource("1_2x2fv")
+vertical_alignment = 1
+
+[node name="VB2" type="VBoxContainer" parent="MC"]
+visible = false
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_constants/separation = 20
+
+[node name="LevelCompleteLabel" type="Label" parent="MC/VB2"]
+layout_mode = 2
+text = "LEVEL COMPLETE"
+label_settings = ExtResource("2_d4xbp")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PressSpaceLabel" type="Label" parent="MC/VB2"]
+layout_mode = 2
+text = "Press SPACE"
+label_settings = ExtResource("3_7j6lc")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Sound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_ytaut")
